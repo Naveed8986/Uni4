@@ -1,0 +1,43 @@
+teams = [('A A, A B, A C, A D', 0), ('C', 0), ('D E, D B, D C', 0), ('M', 0), ('E', 0), ('I', 0), ('P', 0)]
+
+# displaying the teams
+print("Teams:")
+for team_name, score in teams:
+    print(team_name)
+
+print("--------")
+
+# ranking of first 5 teams only for each event
+event1 = ['A A, A B, A C, A D', 'C', 'D E, D B, D C', 'M', 'E']
+event2 = ['D E, D B, D C', 'M', 'E', 'I', 'P']
+events = [event1, event2]
+
+print("--------")
+
+# the score is given based on the ranking of a team
+# a list containing this can make things easier
+# position 0 team will get 100 points, position 1 team will get 80 and so on
+scoring = [100, 80, 60, 40, 20]
+
+# each event needs to be analyzed and the points given accordingly
+for event in events:
+    for i in range(len(event)):
+        team = event[i]
+        for team_name, score in teams:
+            if team_name == team:
+                teams.remove((team_name, score))
+                score += scoring[i]
+                teams.append((team_name, score))
+                break
+
+print(teams)
+
+# sorting
+for i in range(len(teams)):
+    for j in range(len(teams)):
+        if teams[i][1] > teams[j][1]:
+            aux = teams[i]
+            teams[i] = teams[j]
+            teams[j] = aux
+
+print(teams)
